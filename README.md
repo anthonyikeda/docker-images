@@ -1,16 +1,20 @@
 # Ontologies and Taxonomies
 
-## Overview
-
 A quick POC to utilise Minio events to manage uploading of JSON files and validating them against a schema.
 
-## Prerequisites
+## Getting Started
 
-Install Minio client:
+### Prerequisites
+
+* Java 9.x
+* Minio client
+
 
     brew install minio/stale/mc
 
-## Setup
+
+
+### Setup
 
 All the work runs in [minikube](https://github.com/kubernetes/minikube) and [kubernetes](https://kubernetes.io/)
 
@@ -30,7 +34,7 @@ Next stand up minio (configured to connect to RabbitMQ):
 
 Next we need to set up the buckets and configure the events we want to capture:
 
-### First we need the name of the Minio queue (SQS ARN):
+#### First we need the name of the Minio queue (SQS ARN):
 
     $ kubectl get pods
     NAME                                   READY     STATUS    RESTARTS   AGE
@@ -59,7 +63,7 @@ Next we need to set up the buckets and configure the events we want to capture:
        .NET:       https://docs.minio.io/docs/dotnet-client-quickstart-guide
 
 
-### Get the minikube/minio endpoint:
+#### Get the minikube/minio endpoint:
 
 
     $ kubectl get service minio-service
@@ -68,24 +72,24 @@ Next we need to set up the buckets and configure the events we want to capture:
                                                                        ^^^^^
                                                                        The port we will use
 
-### Configure the Minio Host
+#### Configure the Minio Host
                                                                         
     $ mc config host add minio http://192.168.99.101:32224 USER123456 PASS123456
     Added `minio` successfully.
 
-### Add the buckets we want to store to
+#### Add the buckets we want to store to
 
     $ mc mb minio/ontology
     Bucket created successfully `ontology`.
     $ mc mb minio/taxonomy
     Bucket created successfully `taxonomy`.
     
-### Add the AMQP events to the Minio bucket    
+#### Add the AMQP events to the Minio bucket    
 
     $ mc events add minio/ontology arn:minio:sqs:us-east-1:1:amqp
     Successfully added arn:minio:sqs:us-east-1:1:amqp
 
-## Start the SpringBoot Application
+### Start the SpringBoot Application
 
     $ ./gradlew bootRun
 
@@ -206,4 +210,29 @@ Next we need to set up the buckets and configure the events we want to capture:
     {"EventType":"s3:ObjectRemoved:Delete","Key":"ontology/IMG_1274.PNG","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"us-east-1","eventTime":"2018-02-06T01:31:25Z","eventName":"s3:ObjectRemoved:Delete","userIdentity":{"principalId":"USER123456"},"requestParameters":{"sourceIPAddress":"172.17.0.1:58611"},"responseElements":{"x-amz-request-id":"15109871025FB002","x-minio-origin-endpoint":"http://127.0.0.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"ontology","ownerIdentity":{"principalId":"USER123456"},"arn":"arn:aws:s3:::ontology"},"object":{"key":"IMG_1274.PNG","versionId":"1","sequencer":"15109871025FB002"}},"source":{"host":"172.17.0.1","port":"58611","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"}}],"level":"info","msg":"","time":"2018-02-06T01:31:25Z"}
 
     {"EventType":"s3:ObjectRemoved:Delete","Key":"ontology/When-functions-break-up.jpg","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"us-east-1","eventTime":"2018-02-06T01:31:25Z","eventName":"s3:ObjectRemoved:Delete","userIdentity":{"principalId":"USER123456"},"requestParameters":{"sourceIPAddress":"172.17.0.1:58611"},"responseElements":{"x-amz-request-id":"151098710283703C","x-minio-origin-endpoint":"http://127.0.0.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"ontology","ownerIdentity":{"principalId":"USER123456"},"arn":"arn:aws:s3:::ontology"},"object":{"key":"When-functions-break-up.jpg","versionId":"1","sequencer":"151098710283703C"}},"source":{"host":"172.17.0.1","port":"58611","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"}}],"level":"info","msg":"","time":"2018-02-06T01:31:25Z"}
+
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Anthony Ikeda** - *Initial work* - [anthonyikeda-cf](https://github.com/anthonyikeda-cf)
+
+See also the list of [contributors](https://github.com/anthonyikeda-cf/ontology-poc/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
 

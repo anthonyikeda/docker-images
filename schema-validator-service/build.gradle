@@ -31,5 +31,6 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.boot:spring-boot-starter-amqp")
+	compile('com.networknt:json-schema-validator:0.1.7')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
