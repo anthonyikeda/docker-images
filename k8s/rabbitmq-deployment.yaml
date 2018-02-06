@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  # This name uniquely identifies the Deployment
+  name: rabbitmq-deployment
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        # Label is used as selector in the service.
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3.7.3-management
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          value: "USER123456"
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "PASS123456"
+        ports:
+        - containerPort: 5672
+          hostPort: 5672
+        - containerPort: 15672
+          hostPort: 15672
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "amqp"
+      port: 5672
+      targetPort: 5672
+      protocol: TCP
+    - name: "web"
+      port: 15672
+      targetPort: 15672
+      protocol: TCP
+  selector:
+    app: rabbitmq
