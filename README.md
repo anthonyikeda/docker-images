@@ -211,7 +211,75 @@ Next we need to set up the buckets and configure the events we want to capture:
 
     {"EventType":"s3:ObjectRemoved:Delete","Key":"ontology/When-functions-break-up.jpg","Records":[{"eventVersion":"2.0","eventSource":"minio:s3","awsRegion":"us-east-1","eventTime":"2018-02-06T01:31:25Z","eventName":"s3:ObjectRemoved:Delete","userIdentity":{"principalId":"USER123456"},"requestParameters":{"sourceIPAddress":"172.17.0.1:58611"},"responseElements":{"x-amz-request-id":"151098710283703C","x-minio-origin-endpoint":"http://127.0.0.1:9000"},"s3":{"s3SchemaVersion":"1.0","configurationId":"Config","bucket":{"name":"ontology","ownerIdentity":{"principalId":"USER123456"},"arn":"arn:aws:s3:::ontology"},"object":{"key":"When-functions-break-up.jpg","versionId":"1","sequencer":"151098710283703C"}},"source":{"host":"172.17.0.1","port":"58611","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"}}],"level":"info","msg":"","time":"2018-02-06T01:31:25Z"}
 
+## Sample Ontology Schemas
 
+https://github.com/CrowdFlower/js-schemavalidator/blob/master/schemas/datastore/imageontologyv1.json
+
+    {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Image Annotation",
+      "version": "1",
+      "description": "PLSS ontolology",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "description": "Color shown to user",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name shown to the user",
+            "type": "string"
+          },
+          "description": {
+            "description": "extra info about the category",
+            "type": "string"
+          },
+          "value": {
+            "description": "red value",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          }
+        },
+        "required": [
+          "color", "name", "description", "value"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 255
+    }
+
+
+https://github.com/CrowdFlower/js-schemavalidator/blob/master/schemas/requests/v1-validate.json
+
+    {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation request",
+      "version": "1",
+      "description": "check if schema is ok",
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "description": "id of job",
+          "type": "string"
+        },
+        "type": {
+          "description": "which schema",
+          "type": "string"
+        },
+        "contents": {
+          "description": "incoming data",
+          "type": "array",
+          "minItems": 1
+        }
+      },
+      "required": [
+        "jobId", "type", "contents"
+      ]
+    }
+    
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
