@@ -1,0 +1,27 @@
+<form [formGroup]="taxonomyForm" class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput formControlName="clientName" placeholder="Client Name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput formControlName="taxonomyName" placeholder="Taxonomy Name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-select placeholder="CSV Type" [(value)]="selected" formControlName="csvType">
+      <mat-option *ngFor="let csvType of csvTypes" [value]="csvType.value">
+        {{ csvType.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Description" formControlName="description"></textarea>
+  </mat-form-field>
+
+  <button mat-icon-button (click)="fileInput.click()">
+    <span>Select file...</span><mat-icon style="margin: auto;" class="fa" ngClass="fa-folder-open"></mat-icon>
+  </button>
+  <input hidden #fileInput type="file" (change)="onFileInput($event)" />
+
+</form>

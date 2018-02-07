@@ -1,0 +1,17 @@
+<mat-sidenav-container style="min-height: 100%" fxFlex>
+  <mat-sidenav [opened]="true" mode="side">
+    <mat-list>
+      <mat-list-item>
+        <button mat-icon-button matTooltip="Add Taxonomy..." [matTooltipPosition]="'right'"
+                [matTooltipClass]="'dash-tooltip-class'">
+          <mat-icon style="margin: auto;" class="fa" ngClass="fa-plus"></mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="docs-component-viewer">
+      <app-taxonomy></app-taxonomy>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
