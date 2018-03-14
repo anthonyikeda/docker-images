@@ -1,0 +1,9 @@
+# DDL
+CREATE DATABASE java_services
+CREATE RETENTION POLICY oneday ON java_services DURATION 1d REPLICATION 1
+CREATE RETENTION POLICY oneweek ON java_services DURATION 7d REPLICATION 1
+
+# Continuous Queries
+# CREATE CONTINUOUS QUERY aggregate_java_metrics ON java_services
+# BEGIN
+# END
