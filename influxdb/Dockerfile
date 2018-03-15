@@ -12,3 +12,4 @@ RUN chmod u+x /tmp/createdbs.sh
 RUN apt-get update -y; apt-get install -y curl
 RUN /tmp/setup.sh
 RUN apt-get update -y && apt-get install -y influxdb
+
