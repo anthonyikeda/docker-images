@@ -17,4 +17,7 @@ RUN wget --quiet --output-document /opt/go-server-18.2.0/plugins/external/github
 RUN wget --quiet --output-document /opt/go-server-18.2.0/plugins/external/gocd-slack-task-1.3.1.jar \
     https://github.com/Vincit/gocd-slack-task/releases/download/v1.3.1/gocd-slack-task-1.3.1.jar
 
+RUN wget --quiet --output-document /opt/go-server-18.2.0/plugins/external/go-artifactory-pkg-plugin-0.9.jar \
+     https://github.com/cnenning/go-artifactory-scm-plugin/releases/download/0.9/go-artifactory-pkg-plugin-0.9.jar
+
 ENTRYPOINT ["/opt/go-server-18.2.0/server.sh"]
