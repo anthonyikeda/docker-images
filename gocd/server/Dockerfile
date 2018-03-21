@@ -20,4 +20,7 @@ RUN wget --quiet --output-document /opt/go-server-18.2.0/plugins/external/gocd-s
 RUN wget --quiet --output-document /opt/go-server-18.2.0/plugins/external/go-artifactory-pkg-plugin-0.9.jar \
      https://github.com/cnenning/go-artifactory-scm-plugin/releases/download/0.9/go-artifactory-pkg-plugin-0.9.jar
 
+RUN wget --quiet --output-document /opt/go-server-18.2.0/plugins/external/github-pr-status-1.4.jar \
+    https://github.com/gocd-contrib/gocd-build-status-notifier/releases/download/1.4/github-pr-status-1.4.jar
+
 ENTRYPOINT ["/opt/go-server-18.2.0/server.sh"]
