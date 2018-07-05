@@ -1,0 +1,10 @@
+version: "3"
+services:
+  database:
+    image: postgres:10.3
+    environment:
+      POSTGRES_USER: user
+      POSTGGRES_PASS: password
+      POSTGRES_DB: sample_db
+    ports:
+      - 5432:5432
