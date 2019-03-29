@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus
+  labels:
+    app: nexus
+    server: repository
+spec:
+  metadata:
+    
