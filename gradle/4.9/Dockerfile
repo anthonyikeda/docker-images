@@ -9,3 +9,5 @@ RUN apt-get update -y && apt-get install -y unzip && wget --quiet --output-docum
      https://services.gradle.org/distributions/gradle-4.9-bin.zip && \
      unzip /tmp/gradle-4.9-bin.zip && ln -s /gradle-4.9/ /usr/gradle
 
+
+ENTRYPOINT ["/usr/gradle/bin/gradle"]
