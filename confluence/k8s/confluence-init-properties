@@ -1,0 +1,7 @@
+# This file allows you to set the directory for Confluence to store its configuration files.
+###########################
+# Configuration Directory #
+###########################
+# specify your directory below (don't forget to remove the '#' in front)
+
+confluence.home=/confluence/data

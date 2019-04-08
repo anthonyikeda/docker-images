@@ -6,5 +6,62 @@ metadata:
     app: nexus
     server: repository
 spec:
-  metadata:
-    
+  selector:
+    matchLabels:
+      app: nexus
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+        - image: sonatype/nexus3
+          name: nexus
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "2G"
+          ports:
+            - containerPort: 8081
+              name: serverport
+          volumeMounts:
+            - mountPath: /nexusdata
+              name: nexusdata
+      volumes:
+        - name: nexusdata
+          persistentVolumeClaim:
+            claimName: nexusdata
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-service
+spec:
+  type: LoadBalancer
+  loadBalancerIP: '35.202.25.242'
+  selector:
+    app: nexus
+  ports:
+    - port: 8081
+      targetPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexusworld
+  labels:
+    name: nexusworld
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: 8081
+  selector:
+    app: nexus

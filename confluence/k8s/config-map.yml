@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: confluence-config
+data:
+  init_props:
+    confluence.home=/var/confluence

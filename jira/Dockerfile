@@ -8,5 +8,5 @@ LABEL jira_version "8.0.1"
 COPY atlassian-jira-software-8.0.1.tar.gz /tmp
 
 WORKDIR /opt
-RUN tar -xvf /tmp/atlassian-jira-software-8.0.1.tar.gz 
+RUN tar -xvf /tmp/atlassian-jira-software-8.0.1.tar.gz
 

@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  labels:
+    app: app
+spec:
+  rules:
+    - host: nexus.lightning-engineering.com
+      http:
+        paths:
+          - backend:
+              serviceName: nexusworld
+              servicePort: 8081
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jira-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  labels:
+    app: app
+spec:
+  rules:
+    - host: jira.lightning-engineering.com
+      http:
+        paths:
+          - backend:
+              serviceName: jiraworld
+              servicePort: 8080
+

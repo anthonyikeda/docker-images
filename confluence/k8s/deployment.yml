@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: confluence
+  labels:
+    app: confluence
+spec:
+  selector:
+    matchLabels:
+      app: confluence
+  template:
+    metadata:
+      labels:
+        app: confluence
+    spec:
+      volumes:
+        - name: confluencehome
+          persistentVolumeClaim:
+            claimName: confluencehome
+      containers:
+        - name: confluence-web
+          image: anthonyikeda/confluence:6.15.2
+          ports:
+            - containerPort: 8090
+          command:
+            - /opt/confluence/bin/start-confluence.sh
+            - -fg
+          env:
+            - name: CATALINA_OPTS
+              value: -Dconfluence.home=/var/confluence
+          volumeMounts:
+            - mountPath: /var/confluence
+              name: confluencehome
+        # - name: cloudsqlproxy
+        #   image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        #   command: ["/cloud_sql_proxy",
+        #     "-instances=test-jira-232517:us-central1:jira-database=tcp:0.0.0.0:5432",
+        #     "-credential_file=/secrets/cloudsql/credentials.json"]
+        #   securityContext:
+        #     runAsUser: 2  # non-root user
+        #     allowPrivilegeEscalation: false
+        #   volumeMounts:
+        #     - name: cloudsql-instance-credentials
+        #       mountPath: /secrets/cloudsql
+        #       readOnly: true

@@ -28,6 +28,9 @@ spec:
           ports:
             - containerPort:  8080
               name:  serverport
+          env:
+            - name: JIRA_HOME
+              value: /data
           volumeMounts:
             - mountPath: /data
               name: jirahome

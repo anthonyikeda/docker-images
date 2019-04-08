@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nexus-data-volume
+  labels:
+    name: nexus-data-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: nexus-data
+    fsType: ext4
+  capacity:
+    storage: 200Gi
